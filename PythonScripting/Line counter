@@ -1,0 +1,32 @@
+#asks for user input on file name and stores input in variable
+filename=input('Please input file name.')
+
+#opens the specified file and creates a list of lines within the file
+with open(filename, 'r') as file:
+    lines=[]
+
+    #turns lines in file into strings and appends them to empty list of lines
+    for line in file:
+        line=line.strip()
+        lines.append(line)
+
+    #counts lines in the list and prints out total of lines
+    with open(filename, 'r') as file:
+        num_lines = sum(1 for line in lines)
+        print('Total lines:', num_lines)
+
+    #asks for user input on line number and stores input in variable
+    for line in lines:
+        fetch=input('Please enter number of desired line.')
+        
+        #start if loop that can be finished by typing 'exit' or 'Exit', else it continues asking for a line number
+        if fetch == 'exit':
+            print(exit())
+        elif fetch == 'Exit':
+            print(exit())
+        elif fetch.isdigit() == False:
+            print("Error: Input is not an integer or exit command.")
+        elif fetch.isdigit() == True and int(fetch) > num_lines:
+            print("Error: Input is outside of range")
+        else :
+            print(lines[int(fetch)])
