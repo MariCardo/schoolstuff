@@ -1,0 +1,12 @@
+#Replace 'SampleText.txt' with name of txt file to be used
+file = open('SampleText.txt','r')
+
+dic = dict()
+for line in file:
+    line = line.rstrip()
+    words = line.split()
+    for w in words:
+        dic[w] = dic.get(w,0) + 1
+
+sorted_dic_by_frequency = sorted (dic.items(), key=lambda x:x[1], reverse=True)
+print(sorted_dic_by_frequency)
