@@ -1,0 +1,65 @@
+#!/bin/bash
+
+#User input and variable reading
+echo "Enter patient's name:"
+read patient
+echo "Was cleaning performed? (y/n):"
+read cleaning
+echo "Was cavity-filling performed? (y/n):"
+read cavity
+echo "Was X-ray performed? (y/n):"
+read xray
+
+#Statements to calculate subtotal, tax and total
+
+#If cleaning was performed, the variable equals 60. Otherwise it equals 0 
+if [[ $cleaning == "n" ]]
+then vcleaning=0
+ else
+ vcleaning=60
+fi
+
+#If cavity-filling was performed, the variable equals 200. Otherwise it equals 0
+if [[ $cavity == "n" ]]
+then vcavity=0
+ else
+ vcavity=200
+fi
+
+#If x-ray was performed, the variable equals 100. Otherwise it equals 0
+if [[ $xray == "n" ]]
+then vxray=0
+ else
+ vxray=100
+fi
+
+#Adds up the values of previous variables into the first subtotal variable
+subt=`expr $vcleaning + $vcavity + $vxray` 
+
+#If the subtotal variable is greater than 200, give a 5% discount. Otherwise no change is made
+if [[ $subt -gt  200 ]]
+then subt2=$(( $subt - ( $subt * 5 / 100 )  ))
+else subt2=`expr $vcleaning + $vcavity + $vxray`
+fi
+
+#If the subtotal variable is greater than 300, give a 10% discount. Otherwise no change is made
+if [[ $subt -gt 300 ]]
+then subt2=$(( $subt - ( $subt * 10 / 100 )  ))
+ else subt2=`expr $vcleaning + $vcavity + $vxray`
+fi
+
+#Calculate tax based on subtotal before discounts
+tax=$(( $subt * 15 / 100 ))
+
+#Receipt template here
+echo
+echo "ILAC Dental Clinic"
+echo "=============================="
+echo
+echo "Receipt for patient name:" $patient
+echo "------------------------------"
+echo "        Subtotal:" $subt2
+echo "        Tax:" $tax
+echo "------------------------------"
+echo "        Total:" `expr $subt2 + $tax`
+echo
